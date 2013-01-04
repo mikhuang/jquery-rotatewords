@@ -1,0 +1,24 @@
+@import "bootstrap.less";
+
+.rotatewords {
+  position: relative;
+  display: inline-block;
+
+  span {
+    display: none;
+    position: absolute;
+    left: 0;
+
+    &.active, &.prev, &.next {
+      text-align: center;
+      display: block;
+      width: 100%;
+      opacity: 0;
+      .transition(opacity .3s);
+    }
+
+    &.active {
+      opacity: 1;
+    }
+  }
+}

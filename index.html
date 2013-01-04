@@ -3,17 +3,24 @@
   <head>
     <title>jQuery Rotatewords</title>
     <link href="lib/prettify/prettify.css" rel="stylesheet">
+    <link href="css/rotatewords.css" rel="stylesheet">
 
     <script src="lib/jquery.js"></script>
     <script src="jquery.rotatewords.js"></script>
     <script src="lib/prettify/prettify.js"></script>
   </head>
   <body>
-    <h1>Rotating words is <b class="rotatewords">fun, dumb, awesome, silly, cool, a fad<b> maybe?</h1>
-    <p>Wrap a list of <span class="rotatewords">words, sayings, things</span> and watch them spin!</p>
+    <h1>Rotating words is <b class="rotatewords">fun, dumb, awesome, silly, cool, a fad</b> maybe?</h1>
+    <p>Wrap a list of <span class="rotatewords rotatewords2">words; sayings; things; this, that, the other</span> and watch them go!</p>
+    <p>They can go <b class="rotatewords" data-interval="100">fast, speedy, zippy, lightning</b></p>
+    <p>Or perhaps <b class="rotatewords" data-interval="5000" data-delim="|">slow|tardy|not, very, fast|meh</b></p>
 
     <pre class="prettyprint language-js" id="code">
 $('.rotatewords').rotatewords();
+$('.rotatewords2').rotatewords({
+  'delim': ';',
+  'interval': 3000
+});
     </pre>
 
     <script>

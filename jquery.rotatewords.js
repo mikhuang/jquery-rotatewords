@@ -56,11 +56,90 @@
       // and this.options
       // you can add more functions like the one below and
       // call them like so: this.yourOtherFunction(this.element, this.options).
+
+      this.getInlineAttr();
+      this.splitText();
+      this.setDimensions();
+      this.startAnimation();
+
     },
 
-    yourOtherFunction: function(el, options) {
-      // some logic
+    getInlineAttr: function() {
+      var $element = $(this.element);
+      var attrs = ['delim', 'interval'];
+
+      for (var i = 0; i < attrs.length; i++) {
+        // check for attribute settings
+        if ($element.attr('data-' + attrs[i])) {
+          this.options[attrs[i]] = $element.attr('data-' + attrs[i]);
+        }
+      }
+    },
+
+    splitText: function() {
+      var $element = $(this.element);
+      var contents = $element.text();
+      var array = contents.split(this.options.delim);
+
+      // clear contents of text container
+      $element.html('');
+
+      // create <span>s, first one active
+      for (var i = 0; i < array.length; i++) {
+        var html = "<span>" + $.trim(array[i]) + "</span>";
+        $element.append(html);
+      }
+    },
+
+    setDimensions: function() {
+      var $element = $(this.element);
+
+      // calculate max width/height
+      var max_w = 0;
+      var max_h = 0;
+      var $spans = $element.find('span');
+
+      $spans.css({
+        'display': 'block',
+        'white-space': 'nowrap',
+        'position': 'absolute'
+      });
+
+      // determine largest dimensions
+      $spans.each(function(){
+        var w = $(this).outerWidth();
+        if (w > max_w) { max_w = w; }
+        $(this).removeAttr('style');
+      });
+
+      // assign width to parent
+      $element.width(max_w);
+
+    },
+
+    startAnimation: function() {
+      var $element = $(this.element);
+      var $spans = $element.find('span');
+      this.interval = setInterval(
+        function(){
+          var $active = $element.find('.active');
+          var i = $active.index();
+
+          // add class for active
+          $active.removeClass('active');
+          var active_i = nextI(i, $spans.length);
+          $spans.eq(active_i).addClass('active');
+
+          // add classes for next and prev
+          var next_i = nextI(active_i, $spans.length);
+          $spans.removeClass('next prev');
+          $spans.eq(next_i).addClass('next');
+          $spans.eq(i).addClass('prev');
+        },
+        this.options.interval
+      );
     }
+
   };
 
   // A really lightweight plugin wrapper around the constructor,
@@ -84,6 +163,12 @@
         }
       });
     }
+  }
+
+  // returns next index given length and current i
+  function nextI(i, length) {
+    if (length === i + 1) { return 0; } // loop to start
+    return i + 1;
   }
 
 })( jQuery, window, document );
