@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>jQuery Rotatewords</title>
+    <link href="lib/prettify/prettify.css" rel="stylesheet">
+
+    <script src="lib/jquery.js"></script>
+    <script src="jquery.rotatewords.js"></script>
+    <script src="lib/prettify/prettify.js"></script>
+  </head>
+  <body>
+    <h1>Rotating words is <b class="rotatewords">fun, dumb, awesome, silly, cool, a fad<b> maybe?</h1>
+    <p>Wrap a list of <span class="rotatewords">words, sayings, things</span> and watch them spin!</p>
+
+    <pre class="prettyprint language-js" id="code">
+$('.rotatewords').rotatewords();
+    </pre>
+
+    <script>
+    $(function(){
+
+      eval($('#code').text());
+      prettyPrint();
+
+    });
+    </script>
+  </body>
+</html>
