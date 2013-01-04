@@ -27,7 +27,7 @@
   var pluginName = 'rotatewords',
     defaults = {
       delim: ",",
-      interval: 1000,
+      interval: 2000,
     };
 
   // The actual plugin constructor
@@ -58,10 +58,10 @@
       // call them like so: this.yourOtherFunction(this.element, this.options).
 
       this.getInlineAttr();
-      this.splitText();
-      this.setDimensions();
-      this.startAnimation();
-
+      if (this.splitText()) {
+        this.setDimensions();
+        this.startAnimation();
+      }
     },
 
     getInlineAttr: function() {
@@ -81,6 +81,11 @@
       var contents = $element.text();
       var array = contents.split(this.options.delim);
 
+      // if only one element, don't do it.
+      if (array.length === 1) {
+        return false;
+      }
+
       // clear contents of text container
       $element.html('');
 
@@ -89,6 +94,8 @@
         var html = "<span>" + $.trim(array[i]) + "</span>";
         $element.append(html);
       }
+
+      return true;
     },
 
     setDimensions: function() {
@@ -107,37 +114,48 @@
 
       // determine largest dimensions
       $spans.each(function(){
-        var w = $(this).outerWidth();
+        var w = $(this).width();
+        var h = $(this).height();
         if (w > max_w) { max_w = w; }
+        if (h > max_h) { max_h = h; }
         $(this).removeAttr('style');
       });
 
       // assign width to parent
       $element.width(max_w);
+      $element.height(max_h);
 
+      // assign active etc
+      $spans.first().addClass('active');
+      this.assignClasses();
     },
 
     startAnimation: function() {
-      var $element = $(this.element);
-      var $spans = $element.find('span');
+      var dis = this;
       this.interval = setInterval(
         function(){
-          var $active = $element.find('.active');
-          var i = $active.index();
-
-          // add class for active
-          $active.removeClass('active');
-          var active_i = nextI(i, $spans.length);
-          $spans.eq(active_i).addClass('active');
-
-          // add classes for next and prev
-          var next_i = nextI(active_i, $spans.length);
-          $spans.removeClass('next prev');
-          $spans.eq(next_i).addClass('next');
-          $spans.eq(i).addClass('prev');
+          dis.assignClasses();
         },
         this.options.interval
       );
+    },
+
+    assignClasses: function(){
+      var $element = $(this.element);
+      var $spans = $element.find('span');
+      var $active = $element.find('.active');
+      var i = $active.index();
+
+      // add class for active
+      $active.removeClass('active');
+      var active_i = nextI(i, $spans.length);
+      $spans.eq(active_i).addClass('active');
+
+      // add classes for next and prev
+      var next_i = nextI(active_i, $spans.length);
+      $spans.removeClass('next prev');
+      $spans.eq(next_i).addClass('next');
+      $spans.eq(i).addClass('prev');
     }
 
   };

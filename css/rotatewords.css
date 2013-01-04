@@ -1,24 +1,73 @@
 .rotatewords {
   position: relative;
   display: inline-block;
+  vertical-align: text-bottom;
 }
 .rotatewords span {
   display: none;
-  position: absolute;
   left: 0;
 }
 .rotatewords span.active,
 .rotatewords span.prev,
 .rotatewords span.next {
+  position: absolute;
   text-align: center;
-  display: block;
   width: 100%;
-  opacity: 0;
-  -webkit-transition: opacity 0.3s;
-  -moz-transition: opacity 0.3s;
-  -o-transition: opacity 0.3s;
-  transition: opacity 0.3s;
 }
 .rotatewords span.active {
+  display: block;
+}
+.rotatewords.rotatewords-fade span.active,
+.rotatewords.rotatewords-fade span.prev,
+.rotatewords.rotatewords-fade span.next {
+  display: block;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+  -webkit-font-smoothing: antialiased;
+}
+.rotatewords.rotatewords-fade span.active {
   opacity: 1;
+}
+.rotatewords.rotatewords-fade-slow span.active,
+.rotatewords.rotatewords-fade-slow span.prev,
+.rotatewords.rotatewords-fade-slow span.next {
+  display: block;
+  opacity: 0;
+  -webkit-transition: opacity 1.5s;
+  -moz-transition: opacity 1.5s;
+  -o-transition: opacity 1.5s;
+  transition: opacity 1.5s;
+  -webkit-font-smoothing: antialiased;
+}
+.rotatewords.rotatewords-fade-slow span.active {
+  opacity: 1;
+}
+.rotatewords.rotatewords-spin {
+  overflow: hidden;
+}
+.rotatewords.rotatewords-spin span.active,
+.rotatewords.rotatewords-spin span.prev,
+.rotatewords.rotatewords-spin span.next {
+  display: block;
+  opacity: .5;
+}
+.rotatewords.rotatewords-spin span.active,
+.rotatewords.rotatewords-spin span.prev {
+  -webkit-transition: top 0.5s, opacity 0.25s;
+  -moz-transition: top 0.5s, opacity 0.25s;
+  -o-transition: top 0.5s, opacity 0.25s;
+  transition: top 0.5s, opacity 0.25s;
+}
+.rotatewords.rotatewords-spin span.prev {
+  top: 100%;
+}
+.rotatewords.rotatewords-spin span.active {
+  top: 0;
+  opacity: 1;
+}
+.rotatewords.rotatewords-spin span.next {
+  top: -100%;
 }

@@ -3,22 +3,79 @@
 .rotatewords {
   position: relative;
   display: inline-block;
+  vertical-align: text-bottom;
 
   span {
     display: none;
-    position: absolute;
     left: 0;
 
     &.active, &.prev, &.next {
+      position: absolute;
       text-align: center;
-      display: block;
       width: 100%;
-      opacity: 0;
-      .transition(opacity .3s);
     }
 
     &.active {
-      opacity: 1;
+      display: block;
+    }
+  }
+
+  &.rotatewords-fade {
+    span {
+      &.active, &.prev, &.next {
+        display: block;
+        opacity: 0;
+        .transition(opacity .5s);
+        -webkit-font-smoothing: antialiased; // for popping issues
+      }
+
+      &.active {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.rotatewords-fade-slow {
+    span {
+      &.active, &.prev, &.next {
+        display: block;
+        opacity: 0;
+        .transition(opacity 1.5s);
+        -webkit-font-smoothing: antialiased; // for popping issues
+      }
+
+      &.active {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.rotatewords-spin {
+    overflow: hidden;
+
+    span {
+      &.active, &.prev, &.next {
+        display: block;
+        opacity: .5;
+      }
+
+      &.active, &.prev {
+        @transition: top .5s, opacity .25s;
+        .transition(@transition);
+      }
+
+      &.prev {
+        top: 100%;
+      }
+
+      &.active {
+        top: 0;
+        opacity: 1;
+      }
+
+      &.next {
+        top: -100%;
+      }
     }
   }
 }

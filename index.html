@@ -10,16 +10,22 @@
     <script src="lib/prettify/prettify.js"></script>
   </head>
   <body>
-    <h1>Rotating words is <b class="rotatewords">fun, dumb, awesome, silly, cool, a fad</b> maybe?</h1>
-    <p>Wrap a list of <span class="rotatewords rotatewords2">words; sayings; things; this, that, the other</span> and watch them go!</p>
-    <p>They can go <b class="rotatewords" data-interval="100">fast, speedy, zippy, lightning</b></p>
-    <p>Or perhaps <b class="rotatewords" data-interval="5000" data-delim="|">slow|tardy|not, very, fast|meh</b></p>
+    <h1>Rotate Words</h1>
+    <h2>A <b class="rotatewords rotatewords-fade">fun, dumb, silly, cool, fad-ish</b> plugin for jQuery by Michael Huang (@mikhuang)</h2>
+    <p>Wrap a list of <span class="rotatewords rotatewords2 rotatewords-spin">words; sayings; things; this, that, the other</span> and watch them go! They can go <b class="rotatewords" data-interval="100">fast, speedy, zippy, lightning</b>. Or perhaps <b class="rotatewords rotatewords-fade-slow" data-interval="3000" data-delim="|">slow|tardy|not, very, fast|meh</b>. <span class="rotatewords rw">A,S,D,F</span><span class="rotatewords rw">K,L,P,Q</span><span class="rotatewords rw">R,F,H,K</span><span class="rotatewords rw">L,M,N,B</span></p>
+
+
+
+
 
     <pre class="prettyprint language-js" id="code">
 $('.rotatewords').rotatewords();
 $('.rotatewords2').rotatewords({
   'delim': ';',
   'interval': 3000
+});
+$('.rw').rotatewords({
+  'interval': 200
 });
     </pre>
 
